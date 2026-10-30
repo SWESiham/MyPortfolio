@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Siham Said | Full-Stack Developer</title>
+<meta name="description" content="Siham Said, full-stack developer building MERN stack web apps with MongoDB, Express, React and Node.js.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500..800;1,9..144,300..500&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Aref+Ruqaa:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* Colors: change them here. Dark mode values are in [data-theme=dark] */
+:root{--bg:#F5F5FA;--ink:#14122B;--muted:#5A5775;--card:#fff;--line:#E3E1EF;
+--c1:#4A35B5;--c2:#6F5BD9;--c3:#A9772B;--c4:#1F8A87;--c5:#8FD9BF;
+--head:"Fraunces","IBM Plex Sans Arabic",Georgia,serif;--body:"Manrope","IBM Plex Sans Arabic","Segoe UI",sans-serif}
+[data-theme=dark]{--bg:#0C0B1A;--ink:#EEEDF8;--muted:#A5A2C2;--card:#15142B;--line:#26244A;--c1:#8F7CF7;--c2:#6B57E3;--c3:#E4C48B;--c4:#6FD6CF;--c5:#8FD9BF}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:400 1.05rem/1.65 var(--body);overflow-x:hidden;transition:background .4s,color .4s}
+body.lock{overflow:hidden}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--c2);outline-offset:3px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+/* ===== Loader: the name rises letter by letter, a gold line draws, the curtain lifts ===== */
+#loader{position:fixed;inset:0;z-index:99;display:grid;place-items:center;direction:ltr;background:radial-gradient(circle at 50% 45%,#1d1846,#0A0918 70%);transition:transform 1s cubic-bezier(.77,0,.18,1)}
+#loader.open{transform:translateY(-101%)}
+.ld{text-align:center;color:#EEEDF8;transition:opacity .5s}
+#loader.open .ld{opacity:0}
+.nm{font:italic 400 clamp(3.2rem,14vw,8.5rem)/1.05 "Fraunces",Georgia,serif;letter-spacing:-.01em}
+.nm span{display:inline-block;opacity:0;transform:translateY(45%);filter:blur(12px);animation:rise .9s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--i) * 70ms + 150ms)}
+.nm .sp{width:.3em}
+@keyframes rise{to{opacity:1;transform:none;filter:none}}
+.rule{height:1px;width:min(280px,55vw);margin:20px auto 16px;background:linear-gradient(90deg,transparent,#E4C48B,transparent);transform:scaleX(0);animation:draw 1s .9s cubic-bezier(.6,0,.2,1) forwards}
+@keyframes draw{to{transform:none}}
+.ar{font:400 clamp(1.7rem,5vw,2.6rem) "Aref Ruqaa",serif;color:#E4C48B;opacity:0;animation:fade .8s 1.2s forwards}
+@keyframes fade{to{opacity:1}}
+nav{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px)}
+nav .wrap{display:flex;justify-content:space-between;align-items:center;height:68px;gap:12px}
+.logo{font:800 1.25rem var(--head);transition:transform .3s}.logo:hover{transform:rotate(-4deg) scale(1.06)}
+#links{position:relative;display:flex;gap:2px;list-style:none;font-weight:600}
+#links a{position:relative;z-index:1;display:block;padding:8px 15px;border-radius:999px;text-decoration:none;transition:color .3s}
+#links a.on{color:#fff}
+#links a:not(.on):hover{color:var(--c2)}
+.pill{position:absolute;border-radius:999px;background:linear-gradient(90deg,var(--c1),var(--c2));opacity:0;transition:left .45s cubic-bezier(.3,1.4,.5,1),width .45s,top .3s,opacity .3s}
+.tools{display:flex;gap:8px}
+.ic{width:42px;height:42px;border-radius:50%;border:2px solid var(--ink);background:none;color:var(--ink);font:700 1.05rem var(--head);cursor:pointer;transition:transform .3s,background .3s}
+.ic:hover{background:var(--c3);color:#1A0F3D;border-color:var(--c3);transform:rotate(20deg) scale(1.1)}
+
+.hero{position:relative;padding:50px 0 30px;overflow-x:clip}
+.orb{position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;z-index:-1;animation:drift 12s ease-in-out infinite alternate}
+.orb.a{width:320px;height:320px;background:var(--c1);top:-40px;inset-inline-start:-80px}
+.orb.b{width:280px;height:280px;background:var(--c2);top:120px;inset-inline-end:-60px;animation-delay:-4s}
+.orb.c{width:220px;height:220px;background:var(--c4);bottom:0;inset-inline-start:40%;animation-delay:-8s}
+@keyframes drift{to{transform:translate(60px,-40px) scale(1.2)}}
+.hero .wrap{display:grid;grid-template-columns:1.3fr 1fr;gap:36px;align-items:center}
+.hello{color:var(--muted);font-weight:600;margin-bottom:8px}
+h1{font:800 clamp(2.6rem,8vw,5.6rem)/1.05 var(--head);letter-spacing:-.02em}
+.role{margin-top:20px;font:600 clamp(1.1rem,2.4vw,1.5rem) var(--head);color:var(--muted);min-height:2em}
+#typed{color:var(--ink);border-inline-end:3px solid var(--c2);padding-inline-end:4px}
+.lead{margin-top:10px;max-width:46ch;color:var(--muted)}
+.cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}
+.btn{display:inline-block;padding:13px 24px;border-radius:999px;font:700 1rem var(--body);text-decoration:none;border:2px solid var(--ink);transition:transform .2s,background .2s,color .2s;cursor:pointer;background:none;color:var(--ink)}
+.btn.main{background:linear-gradient(90deg,var(--c1),var(--c2));border-color:transparent;color:#fff}
+.btn:hover{transform:translateY(-3px);background:var(--c3);border-color:var(--c3);color:#1A0F3D}
+.code{direction:ltr;text-align:left;background:#1B1038;color:#e9e5ff;border-radius:20px;padding:22px 24px;font:500 .95rem/1.7 Consolas,"Courier New",monospace;box-shadow:10px 10px 0 var(--c3);animation:float 5s ease-in-out infinite}
+.code .dots{display:flex;gap:7px;margin-bottom:12px}.code .dots i{width:11px;height:11px;border-radius:50%;background:var(--c2)}.code .dots i:nth-child(2){background:var(--c3)}.code .dots i:nth-child(3){background:var(--c5)}
+.k{color:#ff8fb0}.s{color:#7fe3d5}.n{color:#ffd166}
+@keyframes float{50%{transform:translateY(-10px)}}
+
+.rows{direction:ltr;margin:44px 0 6px;display:grid;gap:6px;transform:rotate(-2deg);width:110%;margin-left:-5%}
+.row{display:flex;width:max-content;white-space:nowrap;will-change:transform;font:800 clamp(2.6rem,7vw,5.2rem)/1.1 var(--head);letter-spacing:-.02em}
+.row span{padding-right:.5em}
+.row.out span{color:transparent;-webkit-text-stroke:2px var(--ink)}
+.row.fill span{color:var(--c2)}.row.fill span:nth-child(3n+2){color:var(--c4)}.row.fill span:nth-child(3n){color:var(--c3)}
+
+section{padding:76px 0}
+h2{font:800 clamp(1.8rem,4vw,2.6rem)/1.15 var(--head);letter-spacing:-.01em;margin-bottom:10px}
+.sub{color:var(--muted);max-width:56ch;margin-bottom:30px}
+.about{display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:start}
+.about p+p{margin-top:14px}
+.facts{background:var(--card);border:2px solid var(--line);border-radius:22px;padding:26px;display:grid;gap:14px}
+.facts div{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding-bottom:10px}
+.facts div:last-child{border:0;padding:0}.facts span{color:var(--muted)}.facts b{text-align:end}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
+.stat{border-radius:22px;padding:24px;color:#fff;font-weight:600;transition:transform .3s}
+.stat:hover{transform:translateY(-6px) rotate(-1deg)}
+.stat b{display:block;font:800 clamp(2.4rem,6vw,3.6rem)/1 var(--head)}
+.stat:nth-child(1){background:var(--c1)}.stat:nth-child(2){background:var(--c2)}.stat:nth-child(3){background:var(--c3);color:#1A0F3D}
+
+.serv{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.sv{background:var(--card);border:2px solid var(--line);border-radius:24px;padding:28px;border-top:8px solid var(--c1);transition:transform .3s}
+.sv:nth-child(2){border-top-color:var(--c2)}.sv:nth-child(3){border-top-color:var(--c4)}
+.sv:hover{transform:translateY(-8px)}
+.sv h3{font:700 1.3rem var(--head);margin-bottom:8px}.sv p{color:var(--muted)}
+
+.tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+.tab{padding:9px 20px;border-radius:999px;border:2px solid var(--ink);background:none;font:600 1rem var(--body);cursor:pointer;color:var(--ink);transition:transform .2s}
+.tab:hover{transform:translateY(-2px)}
+.tab[aria-selected=true]{background:var(--ink);color:var(--bg)}
+.chips{display:flex;flex-wrap:wrap;gap:12px;min-height:130px;align-content:flex-start}
+.chips li{list-style:none;background:var(--card);border:2px solid var(--line);border-radius:14px;padding:12px 22px;font:700 1.05rem var(--head);animation:pop .35s both}
+.chips li:nth-child(3n+1){border-color:var(--c1)}.chips li:nth-child(3n+2){border-color:var(--c2)}.chips li:nth-child(3n){border-color:var(--c4)}
+@keyframes pop{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:none}}
+
+/* ===== Experience: a thread fills as you scroll; each role branches off it and unfolds ===== */
+#experience{overflow-x:clip}
+.xp{position:relative;margin-top:28px}
+.spine{position:absolute;top:0;bottom:0;inset-inline-start:50%;width:4px;margin-inline-start:-2px;border-radius:4px;background:var(--line)}
+.spine i{position:absolute;left:0;right:0;top:0;height:var(--h,0%);border-radius:4px;background:linear-gradient(var(--c1),var(--c2),var(--c3))}
+.spine b{position:absolute;z-index:2;left:50%;top:var(--h,0%);width:20px;height:20px;margin:-10px 0 0 -10px;border-radius:50%;background:var(--c3);box-shadow:0 0 0 6px color-mix(in srgb,var(--c3) 30%,transparent),0 0 26px var(--c3)}
+.xi{position:relative;display:grid;grid-template-columns:1fr 1fr;margin-bottom:60px;--s:1}
+.xi:last-child{margin-bottom:0}
+.xi:nth-child(odd){--dx:-80px;--r:-2deg}.xi:nth-child(even){--dx:80px;--r:2deg}
+[dir=rtl] .xi{--s:-1}
+.xn{position:absolute;z-index:1;top:30px;inset-inline-start:50%;width:24px;height:24px;margin-inline-start:-12px;border-radius:50%;background:var(--bg);border:4px solid var(--line);transition:background .4s,border-color .4s,transform .5s cubic-bezier(.3,1.6,.5,1)}
+.xi.in .xn{background:var(--k);border-color:var(--bg);box-shadow:0 0 0 3px var(--k);transform:scale(1.15);animation:ping .9s}
+@keyframes ping{0%{box-shadow:0 0 0 3px var(--k),0 0 0 3px color-mix(in srgb,var(--k) 55%,transparent)}100%{box-shadow:0 0 0 3px var(--k),0 0 0 22px transparent}}
+.xl{position:absolute;top:40px;height:4px;width:0;border-radius:4px;background:var(--k);transition:width .5s .1s cubic-bezier(.3,.9,.3,1)}
+.xi:nth-child(odd) .xl{inset-inline-end:50%}.xi:nth-child(even) .xl{inset-inline-start:50%}
+.xi.in .xl{width:48px}
+.xi:nth-child(odd) .xc{grid-column:1;margin-inline-end:48px}
+.xi:nth-child(even) .xc{grid-column:2;margin-inline-start:48px}
+.xc{position:relative;background:var(--card);border:2px solid var(--line);border-top:8px solid var(--k);border-radius:24px;padding:24px 26px 26px;opacity:0;
+  transform:translateX(calc(var(--dx) * var(--s))) rotate(calc(var(--r) * var(--s))) scale(.94);
+  transition:opacity .7s .15s,transform .9s .15s cubic-bezier(.2,.9,.25,1.12),box-shadow .35s}
+.xi.in .xc{opacity:1;transform:none}
+.xi.in .xc:hover{box-shadow:10px 10px 0 var(--k)}
+.xh{display:flex;gap:14px;align-items:center}
+.lg{flex:none;display:grid;place-items:center;width:52px;height:52px;border-radius:16px;background:var(--k);color:var(--kt,#fff);font:800 .95rem var(--head);letter-spacing:.02em}
+.xh h3{font:700 1.3rem/1.25 var(--head)}
+.org{color:var(--muted);font-weight:600;line-height:1.4}.org b{color:var(--ink)}.org span{display:block;font-weight:500;font-size:.92rem}
+.meta{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin:16px 0 12px;color:var(--muted);font-weight:600;font-size:.95rem}
+.when{background:var(--bg);border-radius:999px;padding:3px 13px;color:var(--ink)}
+.badge.now{margin:0;display:inline-flex;align-items:center;gap:7px}
+.badge.now i{width:8px;height:8px;border-radius:50%;background:#06281d;animation:blink 1.4s infinite}
+@keyframes blink{50%{opacity:.25}}
+.xc ul{list-style:none;display:grid;gap:8px}
+.xc li{position:relative;padding-inline-start:20px;color:var(--muted)}
+.xc li::before{content:"";position:absolute;inset-inline-start:0;top:.62em;width:8px;height:8px;border-radius:50%;background:var(--k)}
+.xc .tg{margin-top:16px}
+.xc li,.xc .tg span{opacity:0;transform:translateY(10px)}
+.xi.in .xc li,.xi.in .xc .tg span{opacity:1;transform:none;transition:opacity .5s,transform .5s;transition-delay:calc(.45s + var(--j) * .1s)}
+
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px}
+.card{background:var(--card);border:2px solid var(--line);border-radius:24px;overflow:hidden;text-decoration:none;display:flex;flex-direction:column;transition:transform .35s,box-shadow .35s}
+.card:hover{transform:translateY(-8px) rotate(-.6deg);box-shadow:10px 10px 0 var(--c2)}
+.thumb{aspect-ratio:5/3;overflow:hidden;background:var(--line)}
+.thumb img,.thumb svg{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+.card:hover .thumb>*{transform:scale(1.07)}
+.cb{padding:22px;display:grid;gap:10px;flex:1;align-content:start}
+.cb h3{font:700 1.4rem var(--head)}
+.cb p{color:var(--muted)}
+.badge{display:inline-block;background:var(--c5);color:#06281d;border-radius:999px;font:700 .8rem var(--body);padding:2px 12px;margin-inline-start:8px;vertical-align:middle}
+.tg{display:flex;flex-wrap:wrap;gap:8px}.tg span{background:var(--bg);border-radius:999px;padding:3px 13px;font-weight:600;font-size:.9rem}
+.go{font-weight:700;color:var(--c2)}
+
+.contact{background:linear-gradient(135deg,var(--c1),var(--c2));color:#fff;border-radius:32px;padding:56px 40px;text-align:center;position:relative;overflow:hidden}
+.contact p{max-width:46ch;margin:0 auto;opacity:.92}
+form{display:grid;gap:14px;max-width:560px;margin:26px auto 0}
+input,textarea{width:100%;padding:14px 18px;border-radius:14px;border:2px solid rgba(255,255,255,.5);background:rgba(255,255,255,.16);color:#fff;font:inherit}
+input::placeholder,textarea::placeholder{color:#fff;opacity:.75}
+textarea{min-height:130px;resize:vertical}
+.contact .btn{border-color:#fff;color:#fff}.contact .btn.main{background:#fff;color:var(--c1);border-color:#fff}
+.contact .btn:hover{background:var(--c3);border-color:var(--c3);color:#1A0F3D}
+.links{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:24px}
+footer{padding:28px 0 40px;text-align:center;color:var(--muted);font-size:.95rem}
+
+#education{padding:28px 0 8px}
+.edu{display:grid;grid-template-columns:auto 1fr;gap:20px 28px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:28px;padding:30px 34px}
+.cap{width:72px;height:72px;border-radius:20px;display:grid;place-items:center;background:color-mix(in srgb,var(--c1) 12%,transparent);color:var(--c1)}.cap svg{width:40px;height:40px}
+.eh{margin:0;font:600 clamp(1.4rem,3vw,2rem)/1.2 var(--head)}.eu{color:var(--muted);font-weight:600}
+.ef{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;border-top:1px solid var(--line);padding-top:20px}
+.ef span{display:block;color:var(--muted);font-size:.92rem}.ef b{font:600 1.15rem var(--head)}
+.hero .wrap.mw{display:block;margin-top:54px}
+.mern{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line)}
+.mt{padding:22px 20px 6px;border-inline-end:1px solid var(--line)}.mt:last-child{border:0}
+.mt b{display:block;font:600 clamp(3rem,8vw,5.2rem)/1 var(--head);color:var(--c1);transition:color .3s,transform .3s}
+.mt:hover b{color:var(--c3);transform:translateY(-4px)}
+.mt h3{font:700 1.1rem var(--head);margin-top:6px}.mt p{color:var(--muted);font-size:.95rem}
+.sv:nth-child(n){border:1px solid var(--line);padding:28px}
+.sv:hover{border-color:var(--c1)}
+.ico{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;background:color-mix(in srgb,var(--c1) 12%,transparent);color:var(--c1);margin-bottom:16px}
+.ico svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.lgs{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.lng{display:grid;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:24px;transition:transform .3s,border-color .3s}
+.lng:hover{transform:translateY(-5px);border-color:var(--t)}
+.mono{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;font:700 1.2rem Consolas,"Courier New",monospace;color:var(--t);background:color-mix(in srgb,var(--t) 14%,transparent);direction:ltr}
+.lng h3{font:700 1.25rem var(--head)}.lng p{color:var(--muted);font-size:.97rem}
+.stk{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:44px;padding-top:30px;border-top:1px solid var(--line)}
+.sg h3{font:700 1.05rem var(--head);margin-bottom:12px;color:var(--muted)}
+.sg ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px}
+.sg li{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 16px;font-weight:600}
+h1,h2{font-weight:600}h1{letter-spacing:-.025em}
+.orb{opacity:.28}
+.code{box-shadow:0 28px 60px -24px rgba(20,18,43,.5)}
+.card:hover{transform:translateY(-6px);box-shadow:0 26px 50px -26px rgba(20,18,43,.45)}
+.xi.in .xc:hover{box-shadow:0 26px 50px -26px rgba(20,18,43,.45)}
+.facts,.card{border-width:1px}
+.contact{background:linear-gradient(135deg,#1B1744,#2E2570)}.contact .btn.main{color:#2E2570}
+[data-theme=dark] .btn.main{color:#fff}[data-theme=dark] .lg{color:#120E26!important}
+@media(max-width:800px){
+  .hero .wrap,.about,.serv,.grid,.stats{grid-template-columns:1fr}
+  #links{overflow-x:auto;max-width:56vw}#links a{padding:8px 11px;font-size:.92rem}
+  .logo{display:none}.contact{padding:40px 22px}
+  .spine{inset-inline-start:15px}
+  .xi{grid-template-columns:1fr;margin-bottom:44px}
+  .xi:nth-child(n){--dx:60px}
+  .xi:nth-child(n) .xc{grid-column:1;margin-inline:44px 0}
+  .xn{inset-inline-start:15px}
+  .xi:nth-child(n) .xl{inset-inline:15px auto}
+  .xi.in .xl{width:29px}
+  .edu{grid-template-columns:1fr;padding:24px}.ef,.mern,.lgs,.stk{grid-template-columns:1fr 1fr}.mt:nth-child(2n){border-inline-end:0}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.code,.chips li,.orb{animation:none}.curtain,.pill{transition:none}.xc,.xc li,.xc .tg span,.xl,.xn{transition:none!important;animation:none!important}.badge.now i{animation:none}}
+</style>
+</head>
+<body class="lock">
+
+<div id="loader" aria-label="Loading"><div class="ld"><div class="nm" id="nm" aria-label="Siham Said"></div><div class="rule"></div><div class="ar">سهام سيد</div></div></div>
+
+<nav><div class="wrap">
+  <b class="logo" data-i="name"></b>
+  <ul id="links">
+    <li class="pill" id="pill" aria-hidden="true"></li>
+    <li><a href="#about" data-i="nAbout"></a></li><li><a href="#services" data-i="nServ"></a></li>
+    <li><a href="#skills" data-i="nSkills"></a></li><li><a href="#experience" data-i="nExp"></a></li>
+    <li><a href="#work" data-i="nWork"></a></li><li><a href="#contact" data-i="nContact"></a></li>
+  </ul>
+  <div class="tools">
+    <button class="ic" id="langBtn" aria-label="Language">ع</button>
+    <button class="ic" id="themeBtn" aria-label="Dark or light mode">☾</button>
+  </div>
+</div></nav>
+
+<header class="hero">
+<i class="orb a"></i><i class="orb b"></i><i class="orb c"></i>
+<div class="wrap">
+  <div>
+    <p class="hello" data-i="hello"></p>
+    <h1 data-i="name"></h1>
+    <p class="role"><span data-i="build"></span> <span id="typed"></span></p>
+    <p class="lead" data-i="lead"></p>
+    <div class="cta">
+      <a class="btn main" href="#work" data-i="btnWork"></a>
+      <!-- CV is hosted on Google Drive (the file must be shared as "Anyone with the link") -->
+      <a class="btn" href="https://drive.google.com/uc?export=download&id=1-1C2U6r8n7R0uB_iniPCSJE1eSu87aEG" target="_blank" rel="noopener" data-i="btnCv"></a>
+      <a class="btn" href="#contact" data-i="btnTalk"></a>
+    </div>
+  </div>
+  <div class="code" aria-hidden="true">
+    <div class="dots"><i></i><i></i><i></i></div>
+    <span class="k">const</span> siham = {<br>
+    &nbsp;&nbsp;role: <span class="s">"Full-Stack Developer"</span>,<br>
+    &nbsp;&nbsp;stack: <span class="s">"MERN"</span>,<br>
+    &nbsp;&nbsp;builds: <span class="s">"responsive web apps"</span>,<br>
+    &nbsp;&nbsp;status: <span class="s">"Open for work"</span><br>};
+  </div>
+</div>
+<div class="wrap mw"><div class="mern" id="mern"></div></div>
+</header>
+
+<main>
+<section id="education"><div class="wrap"><div class="edu">
+  <div class="cap"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18 24 8l20 10-20 10L4 18Z"/><path d="M12 23v10c0 3 5.4 6 12 6s12-3 12-6V23"/><path d="M44 18v12"/></svg></div>
+  <div><h2 class="eh" data-i="eduDeg"></h2><p class="eu" data-i="eduUni"></p></div>
+  <div class="ef"><div><span data-i="eduLocL"></span><b data-i="eduLoc"></b></div><div><span data-i="eduGradL"></span><b data-i="eduGrad"></b></div><div><span data-i="eduGpaL"></span><b data-i="eduGpa"></b></div></div>
+</div></div></section>
+<section id="about"><div class="wrap">
+  <div class="about">
+    <div><h2 data-i="aboutH"></h2><p data-i="aboutP1"></p><p data-i="aboutP2"></p></div>
+    <div class="facts" id="facts"></div>
+  </div>
+</div></section>
+
+<section id="services"><div class="wrap">
+  <h2 data-i="servH"></h2><p class="sub" data-i="servSub"></p>
+  <div class="serv" id="serv"></div>
+</div></section>
+
+<section id="skills"><div class="wrap">
+  <h2 data-i="skillsH"></h2><p class="sub" data-i="skillsSub"></p>
+  <div class="lgs" id="langs"></div><div class="stk" id="stack"></div>
+</div></section>
+
+<section id="experience"><div class="wrap">
+  <h2 data-i="expH"></h2><p class="sub" data-i="expSub"></p>
+  <div class="xp" id="xp"><div class="spine" aria-hidden="true"><i></i><b></b></div><div id="xpList"></div></div>
+</div></section>
+
+<section id="work"><div class="wrap">
+  <h2 data-i="workH"></h2><p class="sub" data-i="workSub"></p>
+  <div class="tabs" id="filters"></div><div class="grid" id="projects"></div>
+</div></section>
+
+<section id="contact"><div class="wrap"><div class="contact">
+  <h2 data-i="contactH"></h2><p data-i="contactP"></p>
+  <form id="form">
+    <input name="n" data-ph="phN" required><input name="e" type="email" data-ph="phE" required>
+    <textarea name="m" data-ph="phM" required></textarea>
+    <button class="btn main" type="submit" data-i="send"></button>
+  </form>
+  <div class="links">
+    <a class="btn" href="https://www.linkedin.com/in/sihamsaid" target="_blank" rel="noopener">LinkedIn</a>
+    <a class="btn" href="https://github.com/SWESiham" target="_blank" rel="noopener">GitHub</a>
+    <a class="btn" href="mailto:sehamsayed248@gmail.com">Email</a>
+  </div>
+</div></div></section>
+</main>
+<footer>&copy; <span id="yr"></span> <span data-i="name"></span>. <span data-i="rights"></span></footer>
+
+<script>
+/* ================= EDIT YOUR CONTENT HERE (English + Arabic) ================= */
+const T = {
+ en:{name:"Siham Said",nAbout:"About",nServ:"Services",nSkills:"Languages",nExp:"Experience",eduDeg:"B.Sc. in Information Systems",eduUni:"Ain Shams University",eduLocL:"Location",eduLoc:"Cairo, Egypt",eduGradL:"Graduation",eduGrad:"July 2026",eduGpaL:"GPA",eduGpa:"3.346 (B+)",nWork:"Work",nContact:"Contact",
+  hello:"Hi, I'm",build:"I build",lead:"Full-stack developer building fast, clean web apps with the MERN stack: MongoDB, Express, React and Node.js.",
+  btnWork:"See my work",btnCv:"Download CV",btnTalk:"Get in touch",
+  aboutH:"Full-stack developer who likes things simple.",
+  aboutP1:"I build web applications from the screen to the database. I work with the MERN stack end to end. On the front end I use React and plain HTML, CSS and JavaScript. On the back end I build APIs with Node.js and Express, backed by MongoDB or MySQL.",
+  aboutP2:"I care about clean code, pages that feel right on a phone first, and work that is easy for the next person to change.",
+  sExp:"Internships and trainings",sProj:"Projects showcased",sTech:"Technologies I use",
+  servH:"What I do",servSub:"Six ways I can help, from the first screen to the last API call.",
+  skillsH:"Languages and stack",skillsSub:"What I write code in, and the tools around it.",
+  expH:"Experience",expSub:"Internships and training programs, from the latest to the first.",
+  workH:"Selected work",workSub:"Filter by technology. Click a project to open it.",
+  contactH:"Have a project in mind?",contactP:"I'm open to freelance projects and full-time roles. Tell me what you need.",
+  phN:"Your name",phE:"Your email",phM:"Your message",send:"Send message",all:"All",rights:"All rights reserved."},
+ ar:{name:"سهام سيد",nAbout:"من أنا",nServ:"خدماتي",nSkills:"اللغات",nExp:"الخبرة",eduDeg:"بكالوريوس نظم المعلومات",eduUni:"جامعة عين شمس",eduLocL:"الموقع",eduLoc:"القاهرة، مصر",eduGradL:"التخرج",eduGrad:"يوليو ٢٠٢٦",eduGpaL:"المعدل التراكمي",eduGpa:"3.346 (B+)",nWork:"أعمالي",nContact:"تواصل",
+  hello:"أهلاً، أنا",build:"أبني",lead:"مطورة Full-Stack أبني تطبيقات ويب سريعة ونظيفة بحزمة MERN: MongoDB وExpress وReact وNode.js.",
+  btnWork:"شاهد أعمالي",btnCv:"تحميل السيرة الذاتية",btnTalk:"تواصل معي",
+  aboutH:"مطورة Full-Stack تحب البساطة.",
+  aboutP1:"أبني تطبيقات الويب من الواجهة حتى قاعدة البيانات. أعمل بحزمة MERN من البداية للنهاية. في الواجهة أستخدم React وHTML وCSS وJavaScript. وفي الخلفية أبني واجهات برمجية بـ Node.js وExpress مع MongoDB أو MySQL.",
+  aboutP2:"يهمني الكود النظيف، والصفحات المريحة على الموبايل أولاً، وشغل سهل التعديل لمن يأتي بعدي.",
+  sExp:"تدريبات وبرامج تعلم",sProj:"مشاريع معروضة",sTech:"تقنيات أستخدمها",
+  servH:"ماذا أفعل",servSub:"ست خدمات أقدمها، من أول شاشة إلى آخر طلب API.",
+  skillsH:"اللغات والتقنيات",skillsSub:"اللغات التي أكتب بها، والأدوات المحيطة بها.",
+  expH:"الخبرة",expSub:"تدريبات وبرامج تعلم، من الأحدث إلى الأول.",
+  workH:"أعمال مختارة",workSub:"فلتر حسب التقنية، واضغط على المشروع لفتحه.",
+  contactH:"عندك مشروع في بالك؟",contactP:"متاحة لمشاريع حرة ووظائف بدوام كامل. قل لي ماذا تحتاج.",
+  phN:"اسمك",phE:"بريدك الإلكتروني",phM:"رسالتك",send:"إرسال الرسالة",all:"الكل",rights:"جميع الحقوق محفوظة."}
+};
+const FACTS = [
+ [{en:"Role",ar:"الدور"},{en:"Full-Stack Developer",ar:"مطورة Full-Stack"}],
+ [{en:"Main stack",ar:"التقنيات الأساسية"},{en:"MERN stack",ar:"حزمة MERN"}],
+ [{en:"Languages",ar:"اللغات"},{en:"JavaScript, TypeScript, HTML, CSS",ar:"JavaScript وTypeScript وHTML وCSS"}],
+ [{en:"Status",ar:"الحالة"},{en:"Open for work",ar:"متاحة للعمل"}]];
+const SERVICES = [
+ {i:'<path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="m3 13 9 5 9-5"/>',t:{en:"MERN stack apps",ar:"تطبيقات MERN"},d:{en:"End-to-end web apps with MongoDB, Express, React and Node.js.",ar:"تطبيقات ويب متكاملة بـ MongoDB وExpress وReact وNode.js."}},
+ {i:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/>',t:{en:"React interfaces",ar:"واجهات React"},d:{en:"Fast, accessible interfaces built from clean, reusable components.",ar:"واجهات سريعة وسهلة الاستخدام مبنية من مكونات نظيفة قابلة لإعادة الاستخدام."}},
+ {i:'<path d="M4 8h14m-4-4 4 4-4 4M20 16H6m4-4-4 4 4 4"/>',t:{en:"REST APIs",ar:"واجهات REST البرمجية"},d:{en:"Secure Node.js and Express APIs your front end can rely on.",ar:"واجهات Node.js وExpress آمنة يعتمد عليها تطبيقك."}},
+ {i:'<ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/>',t:{en:"Database design",ar:"تصميم قواعد البيانات"},d:{en:"Structured data models in MongoDB or MySQL.",ar:"نماذج بيانات منظمة في MongoDB أو MySQL."}},
+ {i:'<circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.5 12h11L21 7H6"/>',t:{en:"E-commerce websites",ar:"مواقع تجارة إلكترونية"},d:{en:"Online stores with product pages, cart and checkout flow.",ar:"متاجر إلكترونية بصفحات منتجات وسلة وخطوات شراء."}},
+ {i:'<rect x="2" y="5" width="14" height="11" rx="1.5"/><rect x="14" y="9" width="8" height="12" rx="1.5"/><path d="M6 20h6"/>',t:{en:"Responsive websites",ar:"مواقع متجاوبة"},d:{en:"HTML, CSS and JavaScript pages that fit any screen, published on Vercel.",ar:"صفحات HTML وCSS وJavaScript تناسب كل الشاشات ومنشورة على Vercel."}}];
+const SKILLS = {
+ Frontend:{n:{en:"Frontend",ar:"الواجهة"},l:["React","TypeScript","JavaScript","HTML5","CSS3","Bootstrap"]},
+ Backend:{n:{en:"Backend",ar:"الخلفية"},l:["Node.js","Express","REST APIs"]},
+ Database:{n:{en:"Database",ar:"قواعد البيانات"},l:["MongoDB","MySQL"]},
+ Tools:{n:{en:"Tools",ar:"الأدوات"},l:["Git","GitHub","Linux","Vercel"]}};
+const ROLES = {en:["responsive websites","MERN stack applications","React interfaces","REST APIs with Node.js","e-commerce websites"],
+ ar:["مواقع متجاوبة","تطبيقات MERN Stack","واجهات React","واجهات REST بـ Node.js","مواقع تجارة إلكترونية"]};
+const EXP = [
+ {logo:"DC",org:"DATA C",type:{en:"Internship",ar:"تدريب"},role:{en:"Full-Stack Developer Intern",ar:"متدربة مطورة Full-Stack"},
+  when:{en:"Sep 2026 – Present",ar:"سبتمبر ٢٠٢٦ – الآن"},place:{en:"Remote",ar:"عن بُعد"},now:true,
+  pts:[{en:"Working on a web-based project inside an Agile development team.",ar:"أعمل على مشروع ويب داخل فريق تطوير يعتمد منهجية Agile."},
+       {en:"Taking part in project ideation, requirements analysis and technical planning.",ar:"أشارك في بلورة أفكار المشروع وتحليل المتطلبات والتخطيط التقني."}],
+  tags:["Agile","Full-Stack"]},
+ {logo:"DEPI",org:"Digital Egypt Pioneers Initiative (DEPI)",type:{en:"Training program",ar:"برنامج تدريبي"},role:{en:"React Frontend Trainee",ar:"متدربة React Frontend"},
+  when:{en:"Jul 2026 – Present",ar:"يوليو ٢٠٢٦ – الآن"},place:{en:"Cairo, Egypt (Hybrid)",ar:"القاهرة، مصر (هجين)"},now:true,
+  pts:[{en:"Selected for the DEPI React Frontend Web Developer track.",ar:"تم اختياري لمسار DEPI لتطوير واجهات الويب بـ React."},
+       {en:"Building modern, responsive web applications with HTML5, CSS3, JavaScript, TypeScript and React.",ar:"أبني تطبيقات ويب حديثة ومتجاوبة باستخدام HTML5 وCSS3 وJavaScript وTypeScript وReact."}],
+  tags:["React.js","JavaScript","TypeScript","Bootstrap"]},
+ {logo:"NP",org:"Netpoint Software Solutions",type:{en:"Internship",ar:"تدريب"},role:{en:"Frontend Developer Intern",ar:"متدربة Frontend Developer"},
+  when:{en:"Jul 2026 – Sep 2026",ar:"يوليو ٢٠٢٦ – سبتمبر ٢٠٢٦"},place:{en:"Remote",ar:"عن بُعد"},
+  pts:[{en:"Selected for the Frontend Developer internship at Netpoint.",ar:"تم اختياري لتدريب Frontend Developer في Netpoint."},
+       {en:"Built a complete e-commerce web application with HTML5, CSS3, JavaScript and Bootstrap.",ar:"بنيت تطبيق تجارة إلكترونية متكامل باستخدام HTML5 وCSS3 وJavaScript وBootstrap."}],
+  tags:["React.js","JavaScript","Bootstrap"]},
+ {logo:"NTI",org:"National Telecommunication Institute (NTI)",type:{en:"Internship",ar:"تدريب"},role:{en:"MEAN Stack Intern",ar:"متدربة MEAN Stack"},
+  when:{en:"Sep 2025 – Nov 2025",ar:"سبتمبر ٢٠٢٥ – نوفمبر ٢٠٢٥"},place:{en:"On-site",ar:"حضوري"},
+  pts:[{en:"Completed an intensive 180-hour training covering the full software development life cycle.",ar:"أكملت تدريباً مكثفاً لمدة ١٨٠ ساعة يغطي دورة حياة تطوير البرمجيات كاملة."},
+       {en:"Delivered 2 scalable web applications within strict deadlines.",ar:"سلّمت تطبيقي ويب قابلين للتوسع ضمن مواعيد تسليم صارمة."}],
+  tags:["HTML5","Back-End Web Development"]},
+ {logo:"ITI",org:"Information Technology Institute (ITI)",type:{en:"Internship",ar:"تدريب"},role:{en:"Web Development Intern",ar:"متدربة تطوير ويب"},
+  when:{en:"Jul 2025 – Aug 2025",ar:"يوليو ٢٠٢٥ – أغسطس ٢٠٢٥"},place:{en:"Remote",ar:"عن بُعد"},
+  pts:[{en:"Worked with a team of 5 developers during a 120-hour bootcamp.",ar:"عملت مع فريق من ٥ مطورين خلال معسكر تدريبي لمدة ١٢٠ ساعة."},
+       {en:"Architected and deployed a fully responsive Single Page Application (SPA).",ar:"صمّمت ونشرت تطبيق صفحة واحدة (SPA) متجاوباً بالكامل."}],
+  tags:["HTML5","Client-Side Technologies"]}];
+
+// Add a project: copy one block. img = screenshot in the images folder (a drawing is shown until you add it). Empty url = no link.
+const PROJECTS = [
+ {name:"Uniswap",tags:["React","Node.js"],img:"images/uniswap.png",url:"https://github.com/SWESiham/UniSwap",status:{en:"In progress",ar:"قيد التنفيذ"},
+  d:{en:"A project I'm still building, with React on the front end and a Node.js API behind it.",ar:"مشروع ما زلت أبنيه، بـ React في الواجهة وواجهة Node.js البرمجية خلفها."}},
+ {name:"Cinema",tags:["React","Node.js"],img:"images/cinema.png",url:"https://cinema-booking-system-n7zn-seven.vercel.app/",
+  d:{en:"A cinema web app built with React and a Node.js back end.",ar:"تطبيق ويب للسينما مبني بـ React وخلفية Node.js."}},
+ {name:"E-Commerce",tags:["Node.js"],img:"images/facso.png",url:"https://github.com/SWESiham/E-Commerce",
+  d:{en:"A full-stack online store with a Node.js back end.",ar:"متجر إلكتروني متكامل بخلفية Node.js."}},
+ {name:"Shop.co",tags:["HTML/CSS/JS"],img:"images/shopco.png",url:"https://shop-8nmfpsnyi-sihams-projects-fc2e78b5.vercel.app/",
+  d:{en:"A responsive fashion store built with HTML, CSS and JavaScript, live on Vercel.",ar:"متجر أزياء متجاوب مبني بـ HTML وCSS وJavaScript، منشور على Vercel."}}];
+/* ============================================================================ */
+
+const $ = id => document.getElementById(id);
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const get = k => { try { return localStorage.getItem(k); } catch(e) { return null; } };
+const put = (k,v) => { try { localStorage.setItem(k,v); } catch(e) {} };
+let lang = get("lang") || "en";
+let theme = get("theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+let curG = "Frontend", curF = "All", ri = 0, ci = 0, del = false, active = null;
+$("yr").textContent = new Date().getFullYear();
+
+/* ---- Loader ---- */
+(function(){
+  $("nm").innerHTML = [..."Siham Said"].map((c,i) => c === " " ? '<span class="sp"></span>' : `<span style="--i:${i}">${c}</span>`).join("");
+  const done = () => { $("loader").classList.add("open"); document.body.classList.remove("lock"); setTimeout(() => $("loader").remove(), 1200); };
+  if (reduce) return done();
+  Promise.all([new Promise(r => setTimeout(r, 2300)), Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 3500))])]).then(done);
+})();
+
+/* ---- Project drawings (used when a screenshot is missing) ---- */
+const PAL = [["#7C3AED","#00C2E0"],["#FF2E93","#FFB703"],["#22D3A0","#7C3AED"],["#FFB703","#FF2E93"]];
+const ART = PROJECTS.map((p,i) => { const [a,b] = PAL[i % 4];
+ return `<svg viewBox="0 0 400 240" role="img" aria-label="${p.name}"><defs><linearGradient id="g${i}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient></defs><rect width="400" height="240" fill="url(#g${i})"/><rect x="40" y="34" width="320" height="172" rx="12" fill="#fff" opacity=".95"/><rect x="40" y="34" width="320" height="26" rx="12" fill="#1A0F3D"/><circle cx="58" cy="47" r="4" fill="#FF2E93"/><circle cx="72" cy="47" r="4" fill="#FFB703"/><circle cx="86" cy="47" r="4" fill="#22D3A0"/><rect x="58" y="76" width="150" height="14" rx="7" fill="${a}"/><rect x="58" y="98" width="110" height="8" rx="4" fill="#cfc6ee"/><rect x="58" y="114" width="130" height="8" rx="4" fill="#cfc6ee"/><rect x="58" y="138" width="64" height="22" rx="11" fill="${b}"/><rect x="230" y="76" width="112" height="112" rx="10" fill="${b}" opacity=".85"/><circle cx="286" cy="132" r="30" fill="#fff" opacity=".7"/></svg>`; });
+
+/* ---- Render everything in the current language ---- */
+function renderProjects(){
+  const tags = ["All", ...new Set(PROJECTS.flatMap(p => p.tags))];
+  $("filters").innerHTML = tags.map(t => `<button class="tab" aria-selected="${t === curF}" data-f="${t}">${t === "All" ? T[lang].all : t}</button>`).join("");
+  $("projects").innerHTML = PROJECTS.map((p,i) => ({p,i})).filter(x => curF === "All" || x.p.tags.includes(curF)).map(({p,i}) => {
+    const img = p.img ? `<img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.outerHTML=ART[${i}]">` : ART[i];
+    const body = `<div class="thumb">${img}</div><div class="cb"><h3>${p.name}${p.status ? `<span class="badge">${p.status[lang]}</span>` : ""}</h3><div class="tg">${p.tags.map(t => `<span>${t}</span>`).join("")}</div><p>${p.d[lang]}</p>${p.url ? `<span class="go">${lang === "en" ? "Open project" : "افتح المشروع"} &rarr;</span>` : ""}</div>`;
+    return p.url ? `<a class="card" href="${p.url}" target="_blank" rel="noopener">${body}</a>` : `<div class="card">${body}</div>`;
+  }).join("");
+}
+const shown = new Set();
+const COL = [["--c1","#fff"],["--c4","#fff"],["--c3","#fff"],["--c1","#fff"],["--c4","#fff"]];
+function renderXp(){
+  $("xpList").innerHTML = EXP.map((x,i) => {
+    const [c,t] = COL[i % COL.length];
+    const now = x.now ? `<span class="badge now"><i></i>${lang === "en" ? "Present" : "حالياً"}</span>` : "";
+    return `<div class="xi${shown.has(i) ? " in" : ""}" style="--k:var(${c});--kt:${t}"><i class="xn"></i><i class="xl"></i><article class="xc"><div class="xh"><span class="lg">${x.logo}</span><div><h3>${x.role[lang]}</h3><p class="org"><b>${x.org}</b><span>${x.type[lang]}</span></p></div></div><div class="meta"><span class="when">${x.when[lang]}</span><span>${x.place[lang]}</span>${now}</div><ul>${x.pts.map((p,j) => `<li style="--j:${j}">${p[lang]}</li>`).join("")}</ul><div class="tg">${x.tags.map((g,j) => `<span style="--j:${x.pts.length + j}">${g}</span>`).join("")}</div></article></div>`;
+  }).join("");
+  xpUpdate();
+}
+/* The thread fills down to 70% of the screen; a role unfolds when the thread reaches its dot */
+function xpUpdate(){
+  const xp = $("xp"), r = xp.getBoundingClientRect(), line = innerHeight * .7;
+  const p = reduce ? 1 : Math.max(0, Math.min(1, (line - r.top) / r.height));
+  xp.style.setProperty("--h", (p * 100).toFixed(2) + "%");
+  xp.querySelectorAll(".xi").forEach((el,i) => {
+    if (reduce || el.getBoundingClientRect().top + 42 < line) { el.classList.add("in"); shown.add(i); }
+  });
+}
+addEventListener("scroll", xpUpdate, {passive:true}); addEventListener("resize", xpUpdate); addEventListener("load", xpUpdate);
+const LANGS = [
+ {k:"JS",n:"JavaScript",c:"--c3",d:{en:"Interfaces and Node.js servers.",ar:"الواجهات وخوادم Node.js."}},
+ {k:"TS",n:"TypeScript",c:"--c1",d:{en:"Typed, safer code that is easier to maintain.",ar:"كود بأنواع واضحة، أكثر أماناً وأسهل صيانة."}},
+ {k:"</>",n:"HTML5",c:"--c4",d:{en:"Semantic, accessible page structure.",ar:"هيكل صفحات دلالي سهل الوصول."}},
+ {k:"{ }",n:"CSS3",c:"--c2",d:{en:"Responsive layouts and smooth motion.",ar:"تخطيطات متجاوبة وحركة سلسة."}}];
+const STACK = [
+ {n:{en:"Front end",ar:"الواجهة"},l:["React","Bootstrap"]},
+ {n:{en:"Back end",ar:"الخلفية"},l:["Node.js","Express","REST APIs"]},
+ {n:{en:"Databases",ar:"قواعد البيانات"},l:["MongoDB","MySQL"]},
+ {n:{en:"Tools",ar:"الأدوات"},l:["Git","GitHub","Linux","Vercel"]}];
+const MERN = [
+ {k:"M",n:"MongoDB",d:{en:"Database",ar:"قاعدة البيانات"}},{k:"E",n:"Express",d:{en:"Server framework",ar:"إطار الخادم"}},
+ {k:"R",n:"React",d:{en:"User interface",ar:"الواجهة"}},{k:"N",n:"Node.js",d:{en:"Runtime",ar:"بيئة التشغيل"}}];
+function renderSkills(){
+  $("langs").innerHTML = LANGS.map(l => `<div class="lng" style="--t:var(${l.c})"><span class="mono">${l.k}</span><h3>${l.n}</h3><p>${l.d[lang]}</p></div>`).join("");
+  $("stack").innerHTML = STACK.map(g => `<div class="sg"><h3>${g.n[lang]}</h3><ul>${g.l.map(x => `<li>${x}</li>`).join("")}</ul></div>`).join("");
+  $("mern").innerHTML = MERN.map(m => `<div class="mt"><b>${m.k}</b><h3>${m.n}</h3><p>${m.d[lang]}</p></div>`).join("");
+}
+function render(){
+  const h = document.documentElement;
+  h.dataset.theme = theme; h.lang = lang; h.dir = lang === "ar" ? "rtl" : "ltr";
+  $("themeBtn").textContent = theme === "dark" ? "☀" : "☾";
+  $("langBtn").textContent = lang === "ar" ? "EN" : "ع";
+  document.querySelectorAll("[data-i]").forEach(el => el.textContent = T[lang][el.dataset.i]);
+  document.querySelectorAll("[data-ph]").forEach(el => el.placeholder = T[lang][el.dataset.ph]);
+  $("facts").innerHTML = FACTS.map(f => `<div><span>${f[0][lang]}</span><b>${f[1][lang]}</b></div>`).join("");
+  $("serv").innerHTML = SERVICES.map(s => `<div class="sv"><div class="ico"><svg viewBox="0 0 24 24">${s.i}</svg></div><h3>${s.t[lang]}</h3><p>${s.d[lang]}</p></div>`).join("");
+  renderXp();
+  renderSkills(); renderProjects();
+  ri = 0; ci = 0; del = false;
+  setTimeout(() => setPill(active), 60);
+}
+$("filters").onclick = e => { if (e.target.dataset.f) { curF = e.target.dataset.f; renderProjects(); } };
+$("langBtn").onclick = () => { lang = lang === "en" ? "ar" : "en"; put("lang", lang); render(); };
+$("themeBtn").onclick = () => { theme = theme === "dark" ? "light" : "dark"; put("theme", theme); render(); };
+
+/* ---- Navigation pill: slides to the section you are reading ---- */
+const links = [...document.querySelectorAll("#links a")];
+function setPill(a){
+  const p = $("pill");
+  links.forEach(l => l.classList.toggle("on", l === a));
+  if (!a) { p.style.opacity = 0; return; }
+  Object.assign(p.style, {opacity:1, width:a.offsetWidth+"px", height:a.offsetHeight+"px", left:a.offsetLeft+"px", top:a.offsetTop+"px"});
+}
+function spy(){
+  let cur = null;
+  links.forEach(l => { const s = document.querySelector(l.getAttribute("href")); if (s.getBoundingClientRect().top < innerHeight * .4) cur = l; });
+  if (cur !== active) { active = cur; setPill(cur); }
+}
+addEventListener("scroll", spy, {passive:true}); addEventListener("resize", () => setPill(active));
+
+
+
+/* ---- Typing line ---- */
+function type(){
+  const w = ROLES[lang][ri];
+  if (reduce) { $("typed").textContent = ROLES[lang][0]; return setTimeout(type, 1000); }
+  $("typed").textContent = w.slice(0, ci);
+  if (!del && ci === w.length) { del = true; return setTimeout(type, 1400); }
+  if (del && ci === 0) { del = false; ri = (ri + 1) % ROLES[lang].length; }
+  ci += del ? -1 : 1;
+  setTimeout(type, del ? 35 : 75);
+}
+
+/* ---- Contact form: opens the visitor's email app (no server needed) ---- */
+$("form").onsubmit = e => {
+  e.preventDefault(); const f = e.target;
+  location.href = "mailto:sehamsayed248@gmail.com?subject=" + encodeURIComponent("Portfolio message from " + f.n.value) +
+    "&body=" + encodeURIComponent(f.m.value + "\n\n" + f.n.value + " (" + f.e.value + ")");
+};
+
+render(); type();
+</script>
+</body>
+</html>
